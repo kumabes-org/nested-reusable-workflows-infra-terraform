@@ -1,0 +1,16 @@
+name: "Feature"
+
+on:
+  workflow_call:
+    inputs:
+      provider:
+        required: true
+        type: string
+
+jobs:
+  call-reusable-workflows:
+    uses: kumabes-org/reusable-workflows-infra-terraform/.github/workflows/ci.yaml@main
+    with:
+      environment: dev
+      provider: ${{ inputs.provider }}
+    secrets: inherit
