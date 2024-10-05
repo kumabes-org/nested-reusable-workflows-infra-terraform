@@ -1,0 +1,25 @@
+name: "Develop"
+
+on:
+  workflow_call:
+    inputs:
+      provider:
+        required: true
+        type: string
+
+jobs:
+  call-reusable-workflows-ci:
+    uses: kumabes-org/reusable-workflows-infra-terraform/.github/workflows/ci.yaml@main
+    with:
+      environment: dev
+      provider: ${{ inputs.provider }}
+    secrets: inherit
+
+  call-reusable-workflows-cd:
+    needs:
+      - call-reusable-workflows-ci
+    uses: kumabes-org/reusable-workflows-infra-terraform/.github/workflows/cd.yaml@main
+    with:
+      environment: dev
+      provider: ${{ inputs.provider }}
+    secrets: inherit    
