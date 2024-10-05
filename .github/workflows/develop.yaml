@@ -6,6 +6,10 @@ on:
       provider:
         required: true
         type: string
+      destroy-infra:
+        required: false
+        type: boolean
+        default: false
 
 jobs:
   call-reusable-workflows-ci:
@@ -22,4 +26,5 @@ jobs:
     with:
       environment: dev
       provider: ${{ inputs.provider }}
+      destroy-infra: ${{ inputs.destroy-infra }}
     secrets: inherit    
